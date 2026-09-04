@@ -7,11 +7,13 @@ python-multipart
 langgraph
 langchain-core
 langchain-google-genai
-langgraph-checkpoint-postgres>=3.1.2
 psycopg[binary,pool]>=3.2
 
 # Search
 tavily-python
+
+# Cache
+redis>=5.0.0
 
 # PDF / DOCX Parsing
 pdfplumber
