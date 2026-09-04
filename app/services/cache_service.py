@@ -1,5 +1,5 @@
 from app.core.config import get_settings
-from app.core.checkpointer import get_tavily_cache, set_tavily_cache
+from app.core.redis_cache import get_tavily_cache, set_tavily_cache
 from app.core.logging import get_logger
 from app.tools.search_tool import CareerSearchTool
 
@@ -13,11 +13,8 @@ def _normalize_cache_query(query: str) -> str:
 
 async def search_cached(tool: CareerSearchTool, query: str, max_results: int = 5) -> list:
     cache_query = _normalize_cache_query(query)
-    cached = await get_tavily_cache(
-        query=cache_query,
-        max_results=max_results,
-        ttl_seconds=settings.cache_ttl_seconds,
-    )
+    cached = await get_tavily_cache(query=cache_query, max_results=max_results)
+
     if cached is not None:
         logger.info("Cache HIT: %s", query[:50])
 
@@ -25,5 +22,12 @@ async def search_cached(tool: CareerSearchTool, query: str, max_results: int = 5
 
     logger.info("Cache MISS: %s", query[:50])
     result = await tool.search(query, max_results)
-    await set_tavily_cache(query=cache_query, max_results=max_results, result=result)
+    await set_tavily_cache(
+        query=cache_query,
+        max_results=max_results,
+        result=result,
+        ttl_seconds=settings.cache_ttl_seconds,
+    )
+    
     return result
+

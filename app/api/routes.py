@@ -4,7 +4,7 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from typing import Optional
 
 from app.core.career_service import CareerAdvisorService
-from app.core.checkpointer import count_tavily_cache_entries
+from app.core.redis_cache import count_tavily_cache_entries
 from app.tools.resume_parser import parse_resume
 from app.api.sse import sse_router
 
@@ -83,6 +83,6 @@ async def health():
 
     return {
         "status":               "ok",
-        "storage":              "MemorySaver (in-memory)",
+        "storage":              "Redis",
         "tavily_cache_entries": cache_entries,
     }

@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 
 from app.core.config import get_settings
 from app.core.logging import setup_logging
-from app.core.checkpointer import init_checkpointer, close_checkpointer
+from app.core.redis_cache import init_redis, close_redis
 from app.api.routes import router as career_router
 from app.api.routes_interview import router as interview_router
 from app.api.routes_ats import router as ats_router
@@ -14,9 +14,9 @@ setup_logging()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await init_checkpointer()
+    await init_redis()
     yield
-    await close_checkpointer()
+    await close_redis()
 
 app = FastAPI(title="AI Career Advisor API", version="2.0.0", lifespan=lifespan)
 

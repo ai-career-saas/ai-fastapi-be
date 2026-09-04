@@ -22,11 +22,13 @@ class Settings(BaseSettings):
     # Tavily
     tavily_api_key: str
 
-    # In-memory Tavily cache TTL (resets on restart)
+    ## Tavily cache TTL, enforced natively via Redis key expiry (EX)
     cache_ttl_seconds: int = 86400  # 24hr
 
     # For CORS
-    frontend_url: str
+    frontend_url: str = "http://localhost:3000"
+
+    redis_url: str
    
 
 @lru_cache()
