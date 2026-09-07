@@ -1,6 +1,7 @@
 import json
 
 import redis.asyncio as redis
+from redis import exceptions as redis_exceptions
 
 from app.core.config import get_settings
 from app.core.logging import get_logger
@@ -30,7 +31,7 @@ async def init_redis() -> redis.Redis | None:
     )
     try:
         await _redis.ping()
-    except redis.exceptions.RedisError as error:
+    except redis_exceptions.RedisError as error:
         logger.warning("Redis unavailable; caching disabled: %s", error)
         await close_redis()
         return None
@@ -54,7 +55,7 @@ async def get_tavily_cache(query: str, max_results: int) -> list | None:
 
     try:
         raw = await _redis.get(_cache_key(query, max_results))
-    except redis.exceptions.RedisError as error:
+    except redis_exceptions.RedisError as error:
         logger.warning("Redis read failed; treating as cache miss: %s", error)
         await close_redis()
         return None
@@ -74,7 +75,7 @@ async def set_tavily_cache(query: str, max_results: int, result: list, ttl_secon
             json.dumps(result),
             ex=ttl_seconds,
         )
-    except redis.exceptions.RedisError as error:
+    except redis_exceptions.RedisError as error:
         logger.warning("Redis write failed; continuing without cache: %s", error)
         await close_redis()
 
@@ -86,7 +87,7 @@ async def count_tavily_cache_entries() -> int:
         count = 0
         async for _ in _redis.scan_iter(match=f"{CACHE_KEY_PREFIX}:*"):
             count += 1
-    except redis.exceptions.RedisError as error:
+    except redis_exceptions.RedisError as error:
         logger.warning("Redis count failed; reporting no cache entries: %s", error)
         await close_redis()
         return 0
