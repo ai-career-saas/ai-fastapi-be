@@ -16,7 +16,7 @@ class Settings(BaseSettings):
 
     # Gemini
     gemini_api_key: str
-    gemini_model: str = "gemini-3.1-flash-lite-preview"
+    gemini_model: str = "gemini-3.5-flash-lite"
     gemini_embedding_model: str = "models/text-embedding-004"
 
     # Tavily
@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     cache_ttl_seconds: int = 86400  # 24hr
 
     # For CORS
-    frontend_url: str = "http://localhost:3000"
+    frontend_url: str
 
     redis_url: str
    
