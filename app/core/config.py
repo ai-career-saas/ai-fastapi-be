@@ -10,8 +10,8 @@ class Settings(BaseSettings):
     
     # App
     app_name: str = "AI Career Advisor"
-    environment: str = "development"
-    log_level: str = "INFO"
+    environment: str
+    log_level: str
     database_url: str | None = None
 
     # Gemini
@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     cache_ttl_seconds: int = 86400  # 24hr
 
     # For CORS
-    frontend_url: str
+    nestjs_api_url: str
 
     redis_url: str
    

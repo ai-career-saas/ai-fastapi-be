@@ -23,9 +23,7 @@ app = FastAPI(title="AI Career Advisor API", version="2.0.0", lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:4000",
-        "http://127.0.0.1:3000",
-        settings.frontend_url,
+        settings.nestjs_api_url,
     ],
     allow_credentials=True,
     allow_methods=["*"],
