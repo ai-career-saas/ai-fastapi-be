@@ -33,7 +33,3 @@ app.add_middleware(
 app.include_router(career_router)
 app.include_router(interview_router)
 app.include_router(ats_router)
-
-@app.get("/health")
-async def health_check():
-    return {"status": "ok"}
