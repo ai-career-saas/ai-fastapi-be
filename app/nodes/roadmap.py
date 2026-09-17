@@ -117,6 +117,7 @@ async def final_response(state: CareerState) -> CareerState:
 
         updated = {**state, "final_response": response, "timestamp": datetime.datetime.now()}
         await emit_event(updated, "done", "final_response", "เสร็จสิ้น")
+        
         return updated
 
     except Exception as e:
