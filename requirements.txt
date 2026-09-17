@@ -25,3 +25,8 @@ pydantic-settings
 python-dotenv
 httpx
 tenacity
+
+# Testing
+pytest
+pytest-asyncio
+httpx
