@@ -9,7 +9,6 @@ from app.services.llm_service import call_llm, to_dict
 
 logger = get_logger(__name__)
 
-
 async def validate(state: CareerState) -> CareerState:
     logger.info("Node 5: Validation")
     await emit_event(state, "node_start", "node5_validate", "กำลังตรวจสอบคุณภาพและความถูกต้องของผลลัพธ์...")
