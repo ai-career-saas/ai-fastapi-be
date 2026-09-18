@@ -28,7 +28,8 @@ logger = get_logger(__name__)
 
 async def analyze_skills(state: CareerState) -> CareerState:
     logger.info("Node 2: Skills check")
-    await emit_event(state, "node_start", "node2_skills", "กำลังวิเคราะห์ทักษะที่คุณมี...")
+    await emit_event(state, "node_start", "node2_skills", "Analyzing your skills...")
+
     try:
         tool = CareerSearchTool()
         profile = state.get("current_profile", {})
@@ -80,7 +81,7 @@ async def analyze_skills(state: CareerState) -> CareerState:
 
 async def analyze_gaps(state: CareerState) -> CareerState:
     logger.info("Node2b: Gap analysis for: %s", state.get("career_goal"))
-    await emit_event(state, "node_start", "node2_gaps", "กำลังวิเคราะห์ช่องว่างทักษะสำหรับเป้าหมายอาชีพ...")
+    await emit_event(state, "node_start", "node2_gaps", "Analyzing skill gaps for your career goal...")
     try:
         profile = state.get("current_profile", {})
         prefs_json = json.dumps(state.get("preferences", {}), ensure_ascii=False)
@@ -122,7 +123,7 @@ async def analyze_gaps(state: CareerState) -> CareerState:
 
 async def node_recommend(state: CareerState) -> CareerState:
     logger.info("Node Recommend Career")
-    await emit_event(state, "node_start", "recommend_full", "กำลังแนะนำเส้นทางอาชีพที่เหมาะสม...")
+    await emit_event(state, "node_start", "recommend_full", "Analyzing recommended career paths...")
     try:
         detected_skills_json = json.dumps(state.get("detected_skills", []), ensure_ascii=False)
         career_coverage_json = json.dumps(state.get("career_skill_coverage", []), ensure_ascii=False, separators=(",", ":"))
@@ -155,7 +156,7 @@ async def node_recommend(state: CareerState) -> CareerState:
 
 async def node_multi_career_gap(state: CareerState) -> CareerState:
     logger.info("Node Multi-Career Gap Analysis")
-    await emit_event(state, "node_start", "multi_career_gap", "กำลังวิเคราะห์เส้นทางอาชีพเมื่อยังไม่มีเป้าหมายชัดเจน...")
+    await emit_event(state, "node_start", "multi_career_gap", "Analyzing career paths when no clear goal is defined...")
     try:
         tool = CareerSearchTool()
 

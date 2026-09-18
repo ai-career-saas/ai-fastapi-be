@@ -1,6 +1,4 @@
 from typing import TypedDict, Optional
-
-
 class CareerState(TypedDict):
     message: str
     resume_text: Optional[str]
