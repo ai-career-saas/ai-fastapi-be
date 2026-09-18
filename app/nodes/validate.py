@@ -11,7 +11,7 @@ logger = get_logger(__name__)
 
 async def validate(state: CareerState) -> CareerState:
     logger.info("Node 5: Validation")
-    await emit_event(state, "node_start", "node5_validate", "กำลังตรวจสอบคุณภาพและความถูกต้องของผลลัพธ์...")
+    await emit_event(state, "node_start", "node5_validate", "Validating the generated career plan...")
 
     try:
         market_data = state.get("market_data") or {}
