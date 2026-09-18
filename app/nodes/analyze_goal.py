@@ -13,7 +13,7 @@ async def analyze_goal(state: CareerState) -> CareerState:
         state,
         "node_start",
         "node1_analyze",
-        "กำลังวิเคราะห์เป้าหมายอาชีพและข้อมูลจากเรซูเม่...",
+        "Analyzing career goal and current profile...",
     )
 
     try:

@@ -14,7 +14,7 @@ logger = get_logger(__name__)
 
 async def market_agent(state: CareerState) -> CareerState:
     logger.info("Node Market Agent")
-    await emit_event(state, "node_start", "node3_market", "กำลังวิเคราะห์ตลาดงานและความต้องการของอาชีพ...")
+    await emit_event(state, "node_start", "node3_market", "Analyzing the job market and career demands...")
     market_data = {}
     
     try:

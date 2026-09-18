@@ -13,7 +13,7 @@ logger = get_logger(__name__)
 
 async def create_roadmap(state: CareerState) -> CareerState:
     logger.info("Node Roadmap Planner")
-    await emit_event(state, "node_start", "node4_roadmap", "กำลังสร้าง Learning Roadmap (แผนพัฒนารายขั้น)...")
+    await emit_event(state, "node_start", "node4_roadmap", "Creating your personalized roadmap...")
     retry = state.get("validation_retry_count", 0)
 
     try:
@@ -81,7 +81,7 @@ async def final_response(state: CareerState) -> CareerState:
     path = state.get("path_type", "has_goal")
 
     try:
-        await emit_event(state, "node_start", "final_response", "กำลังเรียบเรียงคำตอบสุดท้าย...")
+        await emit_event(state, "node_start", "final_response", "Generating final response...")
         market_analysis = to_dict((state.get("market_data") or {}).get("analysis", {}))
 
         if path == "no_goal_sufficient":
