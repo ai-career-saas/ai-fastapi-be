@@ -82,7 +82,7 @@ async def health():
     cache_entries = await count_tavily_cache_entries()
 
     return {
-        "status":               "ok",
+        "status":               "Healthy",
         "storage":              "Redis",
         "tavily_cache_entries": cache_entries,
     }
