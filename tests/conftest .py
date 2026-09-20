@@ -1,19 +1,26 @@
 import os
 
-os.environ.setdefault("ENVIRONMENT", "test")
-os.environ.setdefault("LOG_LEVEL", "INFO")
-os.environ.setdefault("GEMINI_API_KEY", "test-gemini-key")
-os.environ.setdefault("TAVILY_API_KEY", "test-tavily-key")
-os.environ.setdefault("NESTJS_API_URL", "http://localhost:3000")
-os.environ.setdefault("REDIS_URL", "redis://localhost:6379/0")
-
 import pytest
-from fastapi.testclient import TestClient
 
-from app.main import app
+REQUIRED_ENV = {
+    "ENVIRONMENT": "test",
+    "LOG_LEVEL": "INFO",
+    "GEMINI_API_KEY": "test-gemini-key",
+    "TAVILY_API_KEY": "test-tavily-key",
+    "NESTJS_API_URL": "http://localhost:3000",
+    "REDIS_URL": "redis://localhost:6379/0",
+}
+
+
+def pytest_configure(config):
+    for key, value in REQUIRED_ENV.items():
+        os.environ.setdefault(key, value)
 
 
 @pytest.fixture(scope="session")
 def client():
+    from fastapi.testclient import TestClient
+    from app.main import app
+
     with TestClient(app) as test_client:
         yield test_client
